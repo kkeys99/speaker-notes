@@ -106,9 +106,6 @@ var SLIDES = [
         "I'm Kevin, iOS team",
         "App size — where bytes are going,",
         "why it matters, what we can do",
-        "",
-        "Some is iOS-specific but",
-        "principles apply to any client"
       ]
     ]
   },
@@ -121,57 +118,39 @@ var SLIDES = [
         "",
         "📱 {key}200 MB cellular limit",
         "  iOS warns before downloading >200 MB",
+        "{cue}▶ ADVANCE → iOS alert dialog",
         "  Not a block — but kills conversion",
         "  We're at {key}189 MB = 11 MB headroom"
       ],
       [
-        "  One Rive file = couple MB",
-        "  One new SDK = 10 MB",
-        "  We're 1–2 bad PRs from crossing",
-        "",
         "  Uber crossed it:",
         "  installs {key}↓10%, sign-ups {key}↓12%",
         "  Not theoretical — Uber published these",
         "  {say}\"We do not want to hit that wall\""
       ],
       [
-        "{cue}▶ ADVANCE → iOS alert dialog",
-        "",
-        "  {say}\"That's what it looks like\"",
-        "  \"Download Using Mobile Data?\"",
-        "  \"Later On Wi-Fi\" = what most tap"
-      ],
-      [
         "📉 Download conversion broadly",
         "  Google study: every {key}6 MB ≈ −1% installs",
-        "  (Android, iOS dynamics similar)",
         "  Metered markets (BR, IN, ID, SE Asia):",
         "  ~{key}2.5% per 10 MB",
         "  Many new users on prepaid data",
         "  Every MB costs them real money",
-        "  189 MB is a hard sell"
       ],
       [
         "{cue}▶ ADVANCE → bottom two cards",
         "",
         "💾 Storage pressure",
         "  Millions of {key}64 GB iPhones active",
-        "  iOS quietly auto-offloads unused apps",
-        "  Icon stays (w/ cloud icon) but binary deleted",
-        "  User has to re-download to open"
-      ],
-      [
         "  Settings → Storage sorts by size",
-        "  We're {key}~½ GB on disk",
         "  Competing w/ photos, music, other apps",
-        "  Bigger = more likely to get cut"
+        "  iOS quietly auto-offloads unused apps",
+        "  User has to re-download to open"
       ],
       [
         "⚡ Launch time",
         "  More code → slower cold launch",
         "  System maps all binaries, resolves symbols",
         "  Worse on older devices = emerging markets",
-        "  {say}\"Comes back later w/ dynamic fws\""
       ]
     ]
   },
@@ -181,7 +160,6 @@ var SLIDES = [
     pages: [
       [
         "Two different numbers people confuse",
-        "{say}\"Which one do you mean?\"",
         "",
         "⬇️ Download: {key}189 MB",
         "  Compressed, encrypted, thinned per device",
@@ -197,11 +175,7 @@ var SLIDES = [
       ],
       [
         "  Grows over time (caches, offline content)",
-        "  Binary code = biggest contributor",
         "",
-        "{say}\"When someone says 'the app is",
-        "200 megs' — ask which one.",
-        "Different causes, different fixes.\""
       ]
     ]
   },
@@ -214,35 +188,19 @@ var SLIDES = [
         "Red line = 200 MB cellular warning",
         "",
         "📈 2016: ~10 MB",
-        "  2017–18: climb to ~75 MB",
-        "  Normal growth — more features, courses"
-      ],
-      [
-        "  Early 2020: dip — cleanup or arch change",
-        "  2022–23: flat ~80–100 MB",
-        "  Well below limit. Not urgent."
-      ],
-      [
+        "  Normal growth — more features, courses",
         "  Then mid-2024 → {key}almost vertical 🚨",
         "  {key}100 → 189 MB in ~18 months",
-        "  Nearly doubling"
       ],
       [
         "  Two big contributors:",
         "  {key}Rive growing across more surfaces —",
-        "  every new character animation,",
-        "  interaction, celebration screen",
         "  {key}Unity landed for Music —",
-        "  significant binary chunk"
       ],
       [
         "🎯 {key}11 MB below the limit",
-        "  Nobody shipped a PR thinking",
-        "  \"this will push us over\"",
         "  Each change was reasonable",
         "  But look at the trajectory —",
-        "  if we don't change something,",
-        "  we will cross that line"
       ]
     ]
   },
@@ -253,62 +211,6 @@ var SLIDES = [
       [
         "{say}\"Let's crack one open.\"",
         "IPA = just a zip archive",
-        "",
-        "{cue}▶ 1 — definition card",
-        "  IPA = iOS App Store Package",
-        "  Signed zip w/ everything your app ships"
-      ],
-      [
-        "{cue}▶ 2 — lede",
-        "  Rename to .zip, unzip, poke around",
-        "  {say}\"If you've never done this, try it\"",
-        "",
-        "{cue}▶ 3 — Payload/",
-        "  One directory with everything"
-      ],
-      [
-        "{cue}▶ 4 — DuolingoMobile",
-        "  Mach-O binary — Apple's ELF equivalent",
-        "  All compiled Swift + ObjC from main target",
-        "  {key}~46 MB — sounds like a lot but it's",
-        "  only a fraction of total binary code",
-        "  Most code isn't in the main target"
-      ],
-      [
-        "{cue}▶ 5 — Assets.car + loose resources",
-        "  Two kinds of assets:",
-        "  Assets.car = compiled catalog",
-        "  Apple thins per device ✅",
-        "  Loose files (.riv .mp3 .json .pdf)",
-        "  Ship as-is, no thinning ❌"
-      ],
-      [
-        "{cue}▶ 6 — Info.plist + _CodeSignature",
-        "  Info.plist = bundle ID, version, perms",
-        "  _CodeSignature = hashes for every file"
-      ],
-      [
-        "{cue}▶ 7 — Frameworks/",
-        "  {key}243 dynamic frameworks",
-        "  Each = own binary + resources + code sig",
-        "  This is where majority of code lives",
-        "  Each feature module / shared lib",
-        "  compiles into its own framework"
-      ],
-      [
-        "{cue}▶ 8 — Bedrock.framework/",
-        "  Own Mach-O, own assets,",
-        "  own Info.plist, own _CodeSignature",
-        "",
-        "{cue}▶ 9 — CoreExperiments",
-        "  Same layout — binary, assets, sigs"
-      ],
-      [
-        "{cue}▶ 10 — \"...241 more\"",
-        "  Every one carries own binary,",
-        "  own code signatures, own directory",
-        "  Per-framework packaging tax × 243",
-        "  {say}\"Exact numbers in a few slides\""
       ]
     ]
   },
@@ -318,51 +220,30 @@ var SLIDES = [
     pages: [
       [
         "Real data: App Store v7.124.0",
-        "Built a tool that walks entire bundle,",
-        "categorizes every file",
         "",
         "Treemap: bigger rect = more bytes",
         "Colors = categories in legend"
       ],
       [
-        "🔵 {key}Binaries: 274 / 434 MB = 63%",
-        "  More than everything else combined",
-        "  We'll dig into that next section",
-        "",
-        "  But first: assets —",
-        "  most accessible wins"
-      ],
-      [
         "👉 {key}CoreUIJuicy — 107 MB",
         "  ¼ of the entire app(!)",
-        "  35 MB images",
-        "  26 MB Rive, 25 MB Lottie",
-        "  8 MB audio",
         "  More assets than most apps total"
       ],
       [
         "👉 {key}UnityFramework — 47 MB",
-        "  Almost entirely binary — Music engine",
         "  One dependency = 11% of app",
-        "  Not much we can do about engine size",
-        "  but worth knowing"
       ],
       [
         "👉 {key}Ads — 34 MB",
         "  Third-party ad SDKs",
         "  Don't control, but paying the cost",
         "",
-        "👉 {key}NewYearsPromo — still in bundle!",
-        "  Seasonal event long over",
-        "  Should be cleaned up or on-demand"
       ],
       [
         "{cue}▶ 1 → treemap morphs to bar chart",
         "",
         "  {say}\"Makes it visible at a glance —",
         "  data tells you where the bytes are.\"",
-        "  {say}\"I'll share the link after the talk",
-        "  so you can explore your frameworks.\""
       ]
     ]
   },
@@ -375,8 +256,6 @@ var SLIDES = [
         "",
         "Two things to go after:",
         "  assets & binaries",
-        "Assets first — anyone can chip away,",
-        "no build system changes needed"
       ]
     ]
   },
@@ -387,18 +266,7 @@ var SLIDES = [
       [
         "🔧 Emerge Tools",
         "  PR-level size tracking",
-        "  Every PR gets automated report:",
-        "  total download size, diff from main,",
-        "  which frameworks grew or shrank"
       ],
-      [
-        "{cue}▶ Play / scrub the video",
-        "",
-        "  This is the Emerge diff for Unity PR",
-        "  {key}37 MB new binary from UnityFramework",
-        "  + runtime data",
-        "  {say}\"Worth glancing at in your reviews\""
-      ]
     ]
   },
   {
@@ -406,12 +274,10 @@ var SLIDES = [
     target: 120,
     pages: [
       [
+        "{cue}▶ 1 → bar zooms to asset categories",
         "{key}122 MB in assets",
         "  images, Rive, Lottie, audio",
-        "  Every engineer touches this stuff",
-        "  No build system changes to make a dent",
         "",
-        "{cue}▶ 1 → bar zooms to asset categories"
       ],
       [
         "{cue}▶ 2 → chart lifts",
@@ -419,32 +285,12 @@ var SLIDES = [
         "  when adding or reviewing assets?\"",
         "",
         "{cue}▶ 3 — 🎨 Animations",
-        "  Rive + Lottie = {key}69 MB (>½ asset total)"
-      ],
-      [
-        "  For large assets, ask design:",
-        "  Shared artboard components?",
-        "  (not duplicated paths)",
-        "  No embedded rasters?",
-        "  Simplified keyframes?",
-        "  Rive referenced assets (like fonts)",
-        "  duplicate across every file if not shared",
-        "  That adds up fast"
       ],
       [
         "{cue}▶ 4 — 🖼️ Images",
-        "  Avoid gradients / complex blurs",
-        "  that don't vectorize well",
-        "  Before adding new, check if existing",
-        "  asset already covers the use case",
-        "  Shape in code = zero bundle cost"
       ],
       [
         "{cue}▶ 5 — 🧹 Cleanup",
-        "  Shut down experiment → delete its assets",
-        "  Stumble across unused → remove it",
-        "  NewYearsPromo still in bundle",
-        "  {say}\"That kind of thing.\""
       ]
     ]
   },
@@ -459,23 +305,14 @@ var SLIDES = [
         "  S3 for storage",
         "  CloudFront for delivery",
         "  ResourceClient in the app",
-        "  {say}\"Not hypothetical — pipeline is",
-        "  built and working. Question is",
-        "  what should we move onto it?\""
       ],
       [
         "{cue}▶ 1 — 📅 Seasonal content",
-        "  YIR, sub promos, holiday events",
-        "  Time-boxed by definition —",
         "  start date and end date",
         "  Ship when needed, pull when done",
-        "  {say}\"No reason for YIR assets",
-        "  to sit in the bundle in July\""
       ],
       [
         "{cue}▶ 2 — 🏆 Late in user journey",
-        "  Higher leagues, advanced animations",
-        "  Content most users haven't unlocked",
         "  Day-one user hasn't reached Diamond",
         "  Ship when they get there"
       ],
@@ -483,10 +320,8 @@ var SLIDES = [
         "{cue}▶ 3 — 👤 User-specific",
         "  Course-specific, market-specific",
         "  Not every user learning every language",
-        "  Pull what applies, skip the rest",
         "",
-        "  {say}\"Identify candidates →",
-        "  move behind ResourceClient\""
+        "  {say}\"Main tradeoff is risk of missing assets\"",
       ]
     ]
   },
@@ -497,15 +332,10 @@ var SLIDES = [
       [
         "{say}\"Now the bigger piece — binary code\"",
         "",
-        "  {key}274 MB across 244 Mach-O binaries",
-        "  Main executable + 243 frameworks",
-        "  Mach-O = Apple's ELF equivalent",
         "  Divided into segments"
       ],
       [
         "{cue}▶ 1 → bar zooms to Binaries",
-        "{cue}▶ 2 → splits into __TEXT/__DATA/__LINKEDIT",
-        "{cue}▶ 3 → chart lifts",
         "",
         "  Three segments, each has a job"
       ],
@@ -519,36 +349,23 @@ var SLIDES = [
         "  Example: utility fw has 50 functions,",
         "  app calls 10 — compiled instructions",
         "  for all 50 sitting in __TEXT",
-        "  Linker can't strip across dynamic",
-        "  fw boundaries — has to assume any",
-        "  exported fn might be called at runtime",
-        "  ×243 → unused code accumulates"
       ],
       [
         "{cue}▶ 5 — 🟢 __DATA: {key}31 MB",
         "  Class tables, protocol conformances,",
         "  globals",
-        "  Each fw emits own conformance records",
-        "  Protocol declared in one fw,",
-        "  conformed to in 20 others →",
-        "  20 separate conformance entries",
-        "  × hundreds of protocols × 243 fws"
       ],
       [
         "{cue}▶ 6 — 🟣 __LINKEDIT: {key}33 MB",
         "  Bookkeeping for dynamic linker",
         "  Symbol tables, code sigs, fn starts",
         "  {key}244 separate binaries → 244× overhead",
-        "  Each needs own symbol table, own sigs",
-        "  Merge → collapses to single, much smaller",
-        "  set of tables"
       ],
       [
         "🎯 Same theme across all three:",
         "",
         "  Framework boundaries",
         "  create overhead",
-        "  and block optimization"
       ]
     ]
   },
@@ -557,35 +374,10 @@ var SLIDES = [
     target: 180,
     pages: [
       [
-        "{say}\"Two ways to package a library\"",
-        "",
-        "⬅️ Static linking",
-        "  Linker merges into single binary",
-        "  Sees every symbol at once",
-        "  Dead fn → stripped. Small fn → inlined"
-      ],
-      [
-        "  Zero per-library packaging overhead",
-        "",
-        "  ⚠️ {key}NOT an architecture change",
-        "  Still separate modules, targets, imports",
-        "  Module boundaries, access control — same",
-        "  {say}\"Only the linker output changes\""
-      ],
-      [
-        "  ⚠️ Tradeoff: {key}build time",
-        "  Change one file in a static lib →",
-        "  re-link the whole app",
-        "  220 fws = a lot of code to re-link",
-        "  Real cost we'd need to measure"
-      ],
-      [
         "➡️ Dynamic (what we have today)",
         "  Each fw = separate Mach-O, loaded by dyld",
         "  Black box to each other",
-        "  Can't strip dead code across boundaries",
         "  Each fw pays own packaging tax",
-        "  But: faster incremental builds"
       ],
       [
         "✅ When dynamic makes sense:",
@@ -605,21 +397,30 @@ var SLIDES = [
         "  Dynamic fws = only way to share code"
       ],
       [
-        "{cue}▶ STEP 1 → stats row",
         "",
-        "  {key}243 dynamic frameworks",
-        "  {key} 23 shared w/ extensions → stay dynamic",
-        "  {key}220 main-app only → go static"
+        "⬅️ Static linking",
+        "  Linker merges into single binary",
+        "  Sees every symbol at once",
+        "  Another big win is faster load times"
       ],
       [
-        "  Statically link 220 →",
-        "  linker gets full visibility",
-        "  Dead code stripping across all modules",
-        "  220 fewer fws of packaging overhead",
-        "  23 shared stay dynamic, extensions work",
+        "  Zero per-library packaging overhead",
         "",
-        "  ⚡ Launch time ∝ fw count"
-      ]
+        "  ⚠️ {key}NOT an architecture change",
+        "  Still separate modules, targets, imports",
+        "  Module boundaries, access control — same",
+        "  {say}\"Only the linker output changes\""
+      ],
+      [
+        "  ⚠️ Tradeoff: {key}build time",
+        "  Real cost you should measure"
+      ],
+      [
+        "{cue}▶ STEP 1 → stats row",
+        "",
+        "Not many frameworks are shared across extensions",
+        "Many can go static, app builds working on this"
+      ],
     ]
   },
   {
@@ -627,17 +428,16 @@ var SLIDES = [
     target: 120,
     pages: [
       [
-        "220 → static. What does it buy?",
+        "220 → static. Some examples of why it's helpful",
         "",
         "{cue}▶ 1 — ✂️ Dead code stripping",
-        "  Today: linker strips within one fw only",
+        "  Today: linker strips within fw boundary",
+        "  Has to assume that code may be used by anyone, think like Apple",
         "  Static: sees everything at once"
       ],
       [
         "  Strips anything unreachable from entry",
         "  {key}Huge for 3rd-party dependencies —",
-        "  we use a fraction of most SDKs",
-        "  but ship all their compiled code",
         "",
         "  Cascades: stripped fn →",
         "  its __DATA goes too —",
@@ -648,22 +448,13 @@ var SLIDES = [
         "  Dynamic: call → stub → GOT → target",
         "  (2 indirections, patched at launch)",
         "  Static: call → target (direct jump)",
-        "  Eliminates all of it"
       ],
       [
         "{cue}▶ 3 — 📦 Metadata consolidation",
         "  Every fw carries own linker bookkeeping",
-        "  Export tries, symbol tables, string tables",
-        "  {key}243 copies of overlapping data",
-        "  Merge → one of each, deduplicated"
+        "  symbol tables, string tables",
+        "  Merge → deduplicated, more highly optimized"
       ],
-      [
-        "  Same symbol name across 50 fws →",
-        "  stored once",
-        "",
-        "  {say}\"All three compound",
-        "  across every segment\""
-      ]
     ]
   },
   {
@@ -672,28 +463,18 @@ var SLIDES = [
     pages: [
       [
         "Compiler + linker settings that help —",
-        "first two {key}capped by fw count,",
-        "{key}way more effective after static"
       ],
       [
         "🔴 LTO — Link-Time Optimization",
-        "  [{key}BLOCKED]",
         "  Cross-module inlining + dead code",
         "  elimination at link time",
-        "  Only works on code statically linked",
-        "  into the same binary"
-      ],
-      [
-        "  220 dynamic → most of our code is",
-        "  {key}invisible to LTO",
-        "  Go static → LTO suddenly sees whole app"
+        "  Only works on code within same binary",
+        "  So doesn't work well for dynamic frameworks"
       ],
       [
         "🟡 Dead Code Stripping [{key}LIMITED]",
         "  Walks call graph, removes unreachable",
         "  \"Unreachable\" = within one binary only",
-        "  Can't strip public fn in fw A even if",
-        "  nothing in the app calls it"
       ],
       [
         "  Static → linker sees full call graph",
@@ -707,7 +488,6 @@ var SLIDES = [
         "  Smaller instruction sequences over faster",
         "  Loops stay compact instead of unrolling",
         "  One copy of fn instead of inlining",
-        "  at every call site",
         "  Typically {key}10–20% smaller machine code"
       ],
       [
@@ -716,8 +496,6 @@ var SLIDES = [
         "  By default Swift compiles each file",
         "  independently — WMO sees all at once",
         "  Inline across files, drop dead internals",
-        "  Specialize generics",
-        "  {say}\"LTO-lite, scoped to one module\""
       ]
     ]
   },
@@ -730,30 +508,14 @@ var SLIDES = [
         "",
         "🔴 {key}11 MB of headroom",
         "  Not a lot of room for new initiatives",
-        "  without also thinking about",
-        "  what we're already shipping"
       ],
       [
         "🟠 {key}Assets = easiest start",
-        "  Work w/ design on animation sizes",
-        "  Clean up what's unused",
-        "  Move seasonal → ResourceClient",
-        "  No build changes needed"
       ],
       [
         "🔵 {key}Compile & link choices matter",
-        "  220 fws → static unlocks",
-        "  dead code stripping + LTO",
         "  Bigger project, bigger payoff"
       ],
-      [
-        "Asset size = design conversation",
-        "Static linking = build infrastructure",
-        "{say}\"Different owners, same goal\"",
-        "",
-        "❓ Happy to take questions —",
-        "  frameworks, tooling, anything"
-      ]
     ]
   }
 ];
