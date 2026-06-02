@@ -131,6 +131,7 @@ var SLIDES = [
         "",
         "  Uber crossed it:",
         "  installs {key}↓10%, sign-ups {key}↓12%",
+        "  Not theoretical — Uber published these",
         "  {say}\"We do not want to hit that wall\""
       ],
       [
@@ -144,17 +145,20 @@ var SLIDES = [
         "📉 Download conversion broadly",
         "  Google study: every {key}6 MB ≈ −1% installs",
         "  (Android, iOS dynamics similar)",
-        "  Metered markets (BR, IN, ID):",
+        "  Metered markets (BR, IN, ID, SE Asia):",
         "  ~{key}2.5% per 10 MB",
-        "  Prepaid data — 189 MB is a hard sell"
+        "  Many new users on prepaid data",
+        "  Every MB costs them real money",
+        "  189 MB is a hard sell"
       ],
       [
         "{cue}▶ ADVANCE → bottom two cards",
         "",
         "💾 Storage pressure",
         "  Millions of {key}64 GB iPhones active",
-        "  iOS auto-offloads unused apps",
-        "  Icon stays but binary deleted"
+        "  iOS quietly auto-offloads unused apps",
+        "  Icon stays (w/ cloud icon) but binary deleted",
+        "  User has to re-download to open"
       ],
       [
         "  Settings → Storage sorts by size",
@@ -225,8 +229,9 @@ var SLIDES = [
       ],
       [
         "  Two big contributors:",
-        "  {key}Rive animations growing across",
-        "  more surfaces in the app",
+        "  {key}Rive growing across more surfaces —",
+        "  every new character animation,",
+        "  interaction, celebration screen",
         "  {key}Unity landed for Music —",
         "  significant binary chunk"
       ],
@@ -235,7 +240,9 @@ var SLIDES = [
         "  Nobody shipped a PR thinking",
         "  \"this will push us over\"",
         "  Each change was reasonable",
-        "  But look at the trajectory"
+        "  But look at the trajectory —",
+        "  if we don't change something,",
+        "  we will cross that line"
       ]
     ]
   },
@@ -420,13 +427,15 @@ var SLIDES = [
         "  (not duplicated paths)",
         "  No embedded rasters?",
         "  Simplified keyframes?",
-        "  Rive fonts duplicate if not shared"
+        "  Rive referenced assets (like fonts)",
+        "  duplicate across every file if not shared"
       ],
       [
         "{cue}▶ 4 — 🖼️ Images",
         "  Avoid gradients / complex blurs",
         "  that don't vectorize well",
-        "  Check if existing asset covers the use case",
+        "  Before adding new, check if existing",
+        "  asset already covers the use case",
         "  Shape in code = zero bundle cost"
       ],
       [
@@ -504,8 +513,9 @@ var SLIDES = [
         "  This is where dead code hides"
       ],
       [
-        "  Utility fw has 50 functions,",
-        "  app calls 10, all 50 ship",
+        "  Example: utility fw has 50 functions,",
+        "  app calls 10 — compiled instructions",
+        "  for all 50 sitting in __TEXT",
         "  Linker can't strip across dynamic",
         "  fw boundaries — has to assume any",
         "  exported fn might be called at runtime",
@@ -516,7 +526,9 @@ var SLIDES = [
         "  Class tables, protocol conformances,",
         "  globals",
         "  Each fw emits own conformance records",
-        "  1 protocol × 20 conformers = 20 entries",
+        "  Protocol declared in one fw,",
+        "  conformed to in 20 others →",
+        "  20 separate conformance entries",
         "  × hundreds of protocols × 243 fws"
       ],
       [
@@ -524,7 +536,9 @@ var SLIDES = [
         "  Bookkeeping for dynamic linker",
         "  Symbol tables, code sigs, fn starts",
         "  {key}244 separate binaries → 244× overhead",
-        "  Merge → collapses to one set of tables"
+        "  Each needs own symbol table, own sigs",
+        "  Merge → collapses to single, much smaller",
+        "  set of tables"
       ],
       [
         "🎯 Same theme across all three:",
@@ -576,11 +590,14 @@ var SLIDES = [
         "  Apple fws (UIKit, Foundation, SwiftUI)",
         "  One copy on disk, mapped into every process",
         "  Hundreds of apps share one UIKit",
+        "  Instead of each bundling their own",
         "  Big storage + memory win at OS level"
       ],
       [
         "  App extensions",
         "  Widget + NotifService share fws w/ main",
+        "  If both need Bedrock, ship once as dynamic",
+        "  instead of duplicating into both binaries",
         "  Extensions = separate processes",
         "  Dynamic fws = only way to share code"
       ],
@@ -619,7 +636,8 @@ var SLIDES = [
         "  we use a fraction, ship all their code",
         "",
         "  Cascades: stripped fn →",
-        "  its __DATA goes too (conformances, etc)"
+        "  its __DATA goes too —",
+        "  protocol conformances, class tables, globals"
       ],
       [
         "{cue}▶ 2 — 🎯 Direct addressing",
@@ -658,11 +676,13 @@ var SLIDES = [
         "  [{key}BLOCKED]",
         "  Cross-module inlining + dead code",
         "  elimination at link time",
-        "  Only works on statically linked code"
+        "  Only works on code statically linked",
+        "  into the same binary"
       ],
       [
-        "  220 dynamic → most code invisible to LTO",
-        "  Go static → LTO sees whole app"
+        "  220 dynamic → most of our code is",
+        "  {key}invisible to LTO",
+        "  Go static → LTO suddenly sees whole app"
       ],
       [
         "🟡 Dead Code Stripping [{key}LIMITED]",
@@ -687,7 +707,8 @@ var SLIDES = [
       [
         "✅ WMO [{key}ENABLED]",
         "  Whole Module Optimization",
-        "  Sees all files in a module at once",
+        "  By default Swift compiles each file",
+        "  independently — WMO sees all at once",
         "  Inline across files, drop dead internals",
         "  Specialize generics",
         "  {say}\"LTO-lite, scoped to one module\""
