@@ -428,7 +428,8 @@ var SLIDES = [
         "  No embedded rasters?",
         "  Simplified keyframes?",
         "  Rive referenced assets (like fonts)",
-        "  duplicate across every file if not shared"
+        "  duplicate across every file if not shared",
+        "  That adds up fast"
       ],
       [
         "{cue}▶ 4 — 🖼️ Images",
@@ -458,7 +459,8 @@ var SLIDES = [
         "  S3 for storage",
         "  CloudFront for delivery",
         "  ResourceClient in the app",
-        "  {say}\"Pipeline is built. Question is",
+        "  {say}\"Not hypothetical — pipeline is",
+        "  built and working. Question is",
         "  what should we move onto it?\""
       ],
       [
@@ -467,7 +469,8 @@ var SLIDES = [
         "  Time-boxed by definition —",
         "  start date and end date",
         "  Ship when needed, pull when done",
-        "  {say}\"No YIR assets in July\""
+        "  {say}\"No reason for YIR assets",
+        "  to sit in the bundle in July\""
       ],
       [
         "{cue}▶ 2 — 🏆 Late in user journey",
@@ -632,8 +635,9 @@ var SLIDES = [
       ],
       [
         "  Strips anything unreachable from entry",
-        "  {key}Huge for 3rd-party SDKs —",
-        "  we use a fraction, ship all their code",
+        "  {key}Huge for 3rd-party dependencies —",
+        "  we use a fraction of most SDKs",
+        "  but ship all their compiled code",
         "",
         "  Cascades: stripped fn →",
         "  its __DATA goes too —",
@@ -700,8 +704,10 @@ var SLIDES = [
       ],
       [
         "✅ -Oz — Optimize for Size [{key}ENABLED]",
-        "  Smaller instructions over faster ones",
-        "  Keeps loops compact, less inlining",
+        "  Smaller instruction sequences over faster",
+        "  Loops stay compact instead of unrolling",
+        "  One copy of fn instead of inlining",
+        "  at every call site",
         "  Typically {key}10–20% smaller machine code"
       ],
       [
