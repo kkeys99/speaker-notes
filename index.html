@@ -11,41 +11,41 @@
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #111; color: #e0e0e0; }
 
-  #app { height: 100%; display: flex; flex-direction: column; }
+  #app { height: 100dvh; display: flex; flex-direction: column; }
 
   .top-bar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 4px 12px; background: #1a1a1a; border-bottom: 1px solid #333;
-    flex-shrink: 0; height: 30px;
+    padding: 8px 16px; background: #1a1a1a; border-bottom: 1px solid #333;
+    flex-shrink: 0;
   }
-  .slide-title { font-size: 13px; font-weight: 700; color: #58a6ff; }
-  .slide-meta { font-size: 11px; color: #666; font-variant-numeric: tabular-nums; }
-  .page-indicator { color: #ffa657; font-weight: 600; margin-left: 6px; font-size: 11px; }
+  .slide-title { font-size: 18px; font-weight: 700; color: #58a6ff; }
+  .slide-meta { font-size: 15px; color: #666; font-variant-numeric: tabular-nums; }
+  .page-indicator { color: #ffa657; font-weight: 600; margin-left: 6px; }
 
   .notes-area {
-    flex: 1; overflow: hidden; padding: 8px 12px; line-height: 1.4;
-    display: flex; flex-direction: column; justify-content: flex-start;
+    flex: 1; overflow: hidden; padding: 16px 20px;
+    display: flex; flex-direction: column; justify-content: center;
   }
 
-  .note-line { margin-bottom: 2px; font-size: 13px; white-space: pre-wrap; }
-  .note-line.blank { height: 6px; }
+  .note-line { margin-bottom: 6px; font-size: 24px; line-height: 1.4; }
+  .note-line.blank { height: 14px; }
   .note-line .cue { color: #7ee787; font-weight: 600; }
 
   .nav-bar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 4px 12px; background: #1a1a1a; border-top: 1px solid #333;
-    flex-shrink: 0; height: 32px;
+    padding: 6px 12px; background: #1a1a1a; border-top: 1px solid #333;
+    flex-shrink: 0;
   }
   .nav-btn {
-    background: #2a2a2a; border: none; color: #aaa; font-size: 18px;
-    width: 44px; height: 26px; border-radius: 4px; cursor: pointer;
+    background: #2a2a2a; border: none; color: #aaa; font-size: 22px;
+    width: 54px; height: 36px; border-radius: 6px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
   }
   .nav-btn:active { background: #444; }
-  .dot-row { display: flex; gap: 4px; }
+  .dot-row { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
   .nav-dot {
-    width: 20px; height: 20px; border-radius: 50%; border: none;
-    background: #2a2a2a; color: #666; font-size: 10px; font-weight: 700;
+    width: 22px; height: 22px; border-radius: 50%; border: none;
+    background: #2a2a2a; color: #666; font-size: 11px; font-weight: 700;
     display: flex; align-items: center; justify-content: center; cursor: pointer;
   }
   .nav-dot.active { background: #58a6ff; color: #fff; }
@@ -71,7 +71,7 @@ var SLIDES = [
   {
     title: "1 — Title",
     pages: [
-      ["Kevin, iOS team", "Where bytes are going → why it matters → what to do", "Principles apply to any client"]
+      ["Kevin, iOS team", "Bytes → why it matters → what to do", "Principles apply to any client"]
     ]
   },
   {
@@ -80,29 +80,32 @@ var SLIDES = [
       [
         "📱 200 MB cellular limit",
         "  189 MB → 11 MB headroom",
-        "  One Rive = couple MB, one SDK = 10 MB",
-        "  Uber: installs −10%, sign-ups −12%",
-        "",
-        "{cue}▶ ADVANCE → iOS alert dialog",
-        "  \"Later On Wi-Fi\" = what most people tap"
+        "  One Rive = couple MB, SDK = 10 MB",
+        "  Uber: installs −10%, sign-ups −12%"
       ],
       [
+        "{cue}▶ ADVANCE → iOS alert",
+        "  \"Later On Wi-Fi\" = most people tap",
+        "",
         "📉 Download conversion",
-        "  Google: every 6 MB ≈ −1% installs",
+        "  Google: 6 MB ≈ −1% installs"
+      ],
+      [
         "  Metered markets: ~2.5% per 10 MB",
-        "  Prepaid data — 189 MB is a hard sell",
+        "  Prepaid — 189 MB is a hard sell",
         "",
         "{cue}▶ ADVANCE → bottom two cards"
       ],
       [
         "💾 Storage pressure",
-        "  Millions of 64 GB iPhones still active",
+        "  64 GB iPhones still active",
         "  iOS auto-offloads unused apps",
-        "  Settings → Storage — we're ~½ GB",
-        "",
+        "  Settings → Storage — we're ~½ GB"
+      ],
+      [
         "⚡ Launch time",
         "  More binaries → slower cold launch",
-        "  Comes back later w/ dynamic frameworks"
+        "  Comes back w/ dynamic frameworks"
       ]
     ]
   },
@@ -114,16 +117,17 @@ var SLIDES = [
         "",
         "⬇️ Download: 189 MB",
         "  Compressed + encrypted + thinned",
-        "  Checked against 200 MB limit",
-        "  Delta-compressed for updates"
+        "  Checked against 200 MB limit"
       ],
       [
         "💿 Install: 489 MB",
-        "  On disk, uncompressed — 2.6× download",
-        "  What users see in Settings → Storage",
-        "  Binary code = biggest contributor",
-        "",
-        "\"Ask which one — different causes, different fixes\""
+        "  On disk — 2.6× download",
+        "  What users see in Settings",
+        "  Binary code = biggest contributor"
+      ],
+      [
+        "\"Ask which one\"",
+        "Different causes, different fixes"
       ]
     ]
   },
@@ -131,22 +135,22 @@ var SLIDES = [
     title: "4 — Size Over Time",
     pages: [
       [
-        "Chart: download since 2016, red = 200 MB",
+        "Chart since 2016, red = 200 MB",
         "",
-        "📈 Walk through:",
-        "  2016: ~10 MB",
+        "📈 2016: ~10 MB",
         "  2017–18: climb to ~75 MB",
-        "  2020: dip — cleanup",
-        "  2022–23: flat ~80–100 MB"
+        "  2020: dip — cleanup"
       ],
       [
-        "  Mid-2024 → now: nearly vertical 🚨",
+        "  2022–23: flat ~80–100 MB",
+        "  Mid-2024 → now: vertical 🚨",
         "  100 → 189 MB in ~18 months",
-        "  Rive animations + Unity (Music)",
-        "",
+        "  Rive + Unity (Music)"
+      ],
+      [
         "🎯 11 MB below limit",
-        "  No single PR — trajectory is the problem",
-        "  Need to understand what's in the app"
+        "  No single PR — trajectory is it",
+        "  Need to understand what's inside"
       ]
     ]
   },
@@ -157,29 +161,38 @@ var SLIDES = [
         "\"Let's crack one open\"",
         "",
         "{cue}▶ 1 — definition card",
-        "  IPA = iOS App Store Package, signed zip",
+        "  IPA = App Store Package, signed zip"
+      ],
+      [
         "{cue}▶ 2 — lede",
         "  Rename .zip, unzip, poke around",
         "{cue}▶ 3 — Payload/",
         "  Payload/DuolingoMobile.app/"
       ],
       [
-        "{cue}▶ 4 — DuolingoMobile executable",
+        "{cue}▶ 4 — DuolingoMobile",
         "  Mach-O (Apple's ELF), Swift + ObjC",
-        "  ~46 MB — most code not in main target",
-        "{cue}▶ 5 — Assets.car + loose resources",
-        "  Assets.car = catalog, Apple thins ✅",
-        "  Loose files (.riv, .mp3) = no thinning ❌"
+        "  ~46 MB — most code elsewhere"
+      ],
+      [
+        "{cue}▶ 5 — Assets.car + loose",
+        "  Catalog → Apple thins ✅",
+        "  Loose (.riv, .mp3) → no thinning ❌"
       ],
       [
         "{cue}▶ 6 — Info.plist + _CodeSignature",
-        "  Metadata + hashes for every file",
+        "  Metadata + hashes for every file"
+      ],
+      [
         "{cue}▶ 7 — Frameworks/",
         "  243 dynamic frameworks",
-        "  Each = own binary + resources + code sig",
+        "  Each = binary + resources + code sig"
+      ],
+      [
         "{cue}▶ 8 — Bedrock.framework/",
         "{cue}▶ 9 — CoreExperiments.framework/",
-        "{cue}▶ 10 — \"...241 more\""
+        "{cue}▶ 10 — \"...241 more\"",
+        "  Packaging tax × 243"
       ]
     ]
   },
@@ -187,21 +200,22 @@ var SLIDES = [
     title: "6 — X-Ray Report",
     pages: [
       [
-        "App Store build v7.124.0",
+        "App Store v7.124.0",
         "Treemap: bigger = more bytes",
         "",
-        "🔵 Binaries: 274 MB / 434 = 63%",
-        "",
-        "👉 CoreUIJuicy — 107 MB (¼ of app)",
-        "  35 images, 26 Rive, 25 Lottie, 8 audio"
+        "🔵 Binaries: 274/434 MB = 63%"
       ],
       [
-        "👉 UnityFramework — 47 MB (Music)",
-        "  One dependency = 11% of app",
-        "👉 Ads — 34 MB, third-party SDKs",
-        "👉 NewYearsPromo — still in bundle!",
-        "",
-        "{cue}▶ 1 → treemap morphs to bar chart",
+        "👉 CoreUIJuicy — 107 MB (¼ app)",
+        "  35 img, 26 Rive, 25 Lottie, 8 audio"
+      ],
+      [
+        "👉 Unity — 47 MB (Music, 11%)",
+        "👉 Ads — 34 MB, third-party",
+        "👉 NewYearsPromo — still in bundle!"
+      ],
+      [
+        "{cue}▶ 1 → treemap morphs to bar",
         "  \"Sharing the link after the talk\""
       ]
     ]
@@ -209,16 +223,22 @@ var SLIDES = [
   {
     title: "7 — What Can We Do?",
     pages: [
-      ["Section divider — brief pause", "", "Two tracks: assets & binaries", "Assets first — no build changes needed"]
+      [
+        "Section divider — brief pause",
+        "",
+        "Two tracks: assets & binaries",
+        "Assets first — no build changes"
+      ]
     ]
   },
   {
     title: "8 — PR Size Tracking",
     pages: [
       [
-        "🔧 Emerge Tools — per-PR size report",
-        "  Download size, diff from main, per-fw",
-        "",
+        "🔧 Emerge Tools — per-PR report",
+        "  Size, diff from main, per-fw"
+      ],
+      [
         "{cue}▶ Play / scrub the video",
         "  Unity PR: 37 MB new binary",
         "  \"Worth glancing at in reviews\""
@@ -229,21 +249,23 @@ var SLIDES = [
     title: "9 — Optimizing Assets",
     pages: [
       [
-        "122 MB across images, Rive, Lottie, audio",
+        "122 MB across images, Rive, Lottie",
         "",
         "{cue}▶ 1 → bar zooms to categories",
-        "{cue}▶ 2 → chart lifts",
-        "",
+        "{cue}▶ 2 → chart lifts"
+      ],
+      [
         "{cue}▶ 3 — 🎨 Animations",
         "  Rive + Lottie = 69 MB (>½ assets)",
         "  Shared artboards, no rasters"
       ],
       [
         "{cue}▶ 4 — 🖼️ Images",
-        "  Avoid gradients/blurs that don't vectorize",
+        "  Avoid gradients that don't vectorize",
         "  Reuse before adding new",
-        "  Shape in code = zero bundle cost",
-        "",
+        "  Shape in code = zero bundle cost"
+      ],
+      [
         "{cue}▶ 5 — 🧹 Cleanup",
         "  Kill experiment → delete assets",
         "  e.g. NewYearsPromo still in bundle"
@@ -255,8 +277,9 @@ var SLIDES = [
     pages: [
       [
         "Don't ship everything day one",
-        "Infra: S3 + CloudFront + ResourceClient",
-        "",
+        "Infra: S3 + CloudFront + ResourceClient"
+      ],
+      [
         "{cue}▶ 1 — 📅 Seasonal",
         "  YIR, promos, holiday events",
         "  Ship when needed, pull when done"
@@ -264,10 +287,11 @@ var SLIDES = [
       [
         "{cue}▶ 2 — 🏆 Late in journey",
         "  Higher leagues, advanced animations",
-        "  Day-one user hasn't reached Diamond",
-        "",
+        "  Day-one user hasn't hit Diamond"
+      ],
+      [
         "{cue}▶ 3 — 👤 User-specific",
-        "  Course-specific, market-specific",
+        "  Course/market-specific",
         "  Pull what applies, skip the rest"
       ]
     ]
@@ -284,21 +308,23 @@ var SLIDES = [
       ],
       [
         "{cue}▶ 4 — 🔵 __TEXT: 210 MB (77%)",
-        "  Compiled code, strings, type descriptors",
+        "  Compiled code, strings",
         "  Dead code: ship 50 fns, call 10",
-        "  Can't strip across fw boundaries",
-        "  ×243 → unused code accumulates"
+        "  Can't strip across fw boundaries"
       ],
       [
         "{cue}▶ 5 — 🟢 __DATA: 31 MB",
-        "  Class tables, conformances, globals",
-        "  Each fw emits own records",
-        "",
+        "  Class tables, conformances",
+        "  Each fw emits own records"
+      ],
+      [
         "{cue}▶ 6 — 🟣 __LINKEDIT: 33 MB",
         "  Symbol tables, code sigs",
-        "  244 binaries → 244× bookkeeping",
-        "",
-        "🎯 Fw boundaries = overhead + blocked optimization"
+        "  244 binaries → 244× bookkeeping"
+      ],
+      [
+        "🎯 Fw boundaries =",
+        "  overhead + blocked optimization"
       ]
     ]
   },
@@ -307,29 +333,33 @@ var SLIDES = [
     pages: [
       [
         "⬅️ Static",
-        "  Merges everything → single binary",
-        "  Strips dead code, inlines across modules",
-        "  Zero packaging overhead",
+        "  Merges → single binary",
+        "  Strips dead code, inlines",
+        "  Zero packaging overhead"
+      ],
+      [
         "  ⚠️ NOT an architecture change",
         "  ⚠️ Tradeoff: build time"
       ],
       [
         "➡️ Dynamic (what we have)",
-        "  Each fw = separate Mach-O via dyld",
+        "  Each fw = separate Mach-O",
         "  Can't strip across boundaries",
-        "  But: faster incremental builds",
-        "",
+        "  But: faster incremental builds"
+      ],
+      [
         "✅ When dynamic makes sense:",
-        "  Apple fws — one copy, every process maps it",
-        "  App extensions — only way to share code"
+        "  Apple fws — one copy on disk",
+        "  App extensions — only way to share"
       ],
       [
         "{cue}▶ STEP 1 → stats row",
         "",
         "  243 dynamic frameworks",
-        "   23 shared w/ extensions → stay dynamic",
-        "  220 main-app only → can go static",
-        "",
+        "   23 shared → stay dynamic",
+        "  220 → can go static"
+      ],
+      [
         "  ⚡ Fewer fws = faster cold starts"
       ]
     ]
@@ -341,19 +371,23 @@ var SLIDES = [
         "220 → static. What does it buy?",
         "",
         "{cue}▶ 1 — ✂️ Dead code stripping",
-        "  Today: strips within one fw only",
-        "  Static: sees everything, strips unreachable",
+        "  Today: within one fw only",
+        "  Static: strips all unreachable"
+      ],
+      [
         "  Huge for 3rd-party SDKs",
-        "  Cascades: stripped fn → __DATA goes too"
+        "  Cascades: fn → __DATA goes too"
       ],
       [
         "{cue}▶ 2 — 🎯 Direct addressing",
-        "  Dynamic: call → stub → GOT → target",
-        "  Static: call → target (direct jump)",
-        "",
+        "  Dynamic: call→stub→GOT→target",
+        "  Static: call→target (direct)"
+      ],
+      [
         "{cue}▶ 3 — 📦 Metadata consolidation",
-        "  243 fws × own symbol tables → merge",
-        "  All three compound across every segment"
+        "  243 fws × symbol tables → merge",
+        "",
+        "All three compound across segments"
       ]
     ]
   },
@@ -362,8 +396,9 @@ var SLIDES = [
     pages: [
       [
         "First two capped by fw count —",
-        "way more effective after static linking",
-        "",
+        "way more effective w/ static linking"
+      ],
+      [
         "🔴 LTO [BLOCKED]",
         "  Cross-module inlining + dead code",
         "  Only works on static code",
@@ -372,16 +407,17 @@ var SLIDES = [
       [
         "🟡 DEAD_CODE_STRIPPING [LIMITED]",
         "  Walks call graph, removes unreachable",
-        "  \"Unreachable\" = within one binary only",
-        "  Static → full call graph",
-        "",
-        "✅ -Oz [ENABLED]",
-        "  Compact instructions, ~10–20% smaller"
+        "  \"Unreachable\" = one binary only",
+        "  Static → full call graph"
       ],
       [
-        "✅ Whole Module Optimization [ENABLED]",
-        "  Sees all files in a module at once",
-        "  Inline across files, drop dead internals",
+        "✅ -Oz [ENABLED]",
+        "  Compact instructions",
+        "  ~10–20% smaller machine code"
+      ],
+      [
+        "✅ WMO [ENABLED]",
+        "  All files in module at once",
         "  LTO-lite scoped to one module"
       ]
     ]
@@ -391,13 +427,17 @@ var SLIDES = [
     pages: [
       [
         "🔴 11 MB headroom",
-        "  Not much room left",
-        "",
+        "  Not much room left"
+      ],
+      [
         "🟠 Assets = easiest start",
-        "  Animations, cleanup, seasonal → ResourceClient",
-        "",
+        "  Animations, cleanup,",
+        "  seasonal → ResourceClient"
+      ],
+      [
         "🔵 Compile & link choices matter",
-        "  220 fws → static unlocks dead code + LTO"
+        "  220 fws → static unlocks",
+        "  dead code stripping + LTO"
       ],
       [
         "Asset size = design conversation",
@@ -436,7 +476,7 @@ function renderNotes() {
   var totalPages = slide.pages.length;
   titleEl.textContent = slide.title;
   numEl.textContent = (current + 1) + "/" + SLIDES.length;
-  pageEl.textContent = totalPages > 1 ? "  pg " + (page + 1) + "/" + totalPages : "";
+  pageEl.textContent = totalPages > 1 ? " pg " + (page + 1) + "/" + totalPages : "";
 
   notesEl.innerHTML = "";
   slide.pages[page].forEach(function(line) {
